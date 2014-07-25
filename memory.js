@@ -1,0 +1,57 @@
+var dbstream = require( "dbstream" );
+var sift = require( "sift" );
+var util = require( "util" );
+
+util.inherits( Cursor, dbstream.Cursor );
+function Cursor ( data ) {
+    Cursor.super_.call( this );
+    this._data = data;
+}
+
+Cursor.prototype._save = function ( obj, callback ) {
+    if ( !obj.id ) {
+        obj.id = ( Math.random() * 1e17 ).toString( 36 );
+    }
+    this._data[ obj.id ] = obj;
+    process.nextTick( callback );
+}
+
+Cursor.prototype._load = function ( size ) {
+    var query = this._query,
+        sort = this._sort,
+        skip = this._skip || 0,
+        limit = this._limit || Infinity;
+
+    var data = [];
+    if ( Object.keys( query ).length == 1 && query.id ) {
+        if ( this._data[ query.id ] ) data.push( this._data[ query.id ] );
+    } else {
+        var sifter = sift( query );
+        for ( var id in this._data ) {
+            if ( sifter.test( this._data[ id ] ) ) {
+                data.push( this._data[ id ] );
+            }
+        }
+    }
+
+    data.splice( 0, skip )
+    data.splice( limit );
+    data.push( null );
+    data.forEach( this.push, this );
+}
+
+Cursor.prototype._remove = function ( obj, callback ) {
+    if ( obj.id && this._data[ obj.id ] ) {
+        delete this._data[ obj.id ];
+    }
+    process.nextTick( callback );
+}
+
+module.exports.connect = function ( data ) {
+    data || ( data = {} );
+    var _Cursor = function() {
+        _Cursor.super_.call( this, data );
+    }
+    util.inherits( _Cursor, Cursor );
+    return { Cursor: _Cursor }
+};

@@ -1,0 +1,31 @@
+{
+  "name": "dbstream-memory",
+  "version": "0.0.1",
+  "description": "Memory-based database API, compatible with the DatabaseStream API",
+  "main": "memory.js",
+  "scripts": {
+    "test": "node_modules/mocha/bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avinoamr/dbstream-memory.git"
+  },
+  "keywords": [
+    "database",
+    "stream",
+    "memory",
+    "dbstream"
+  ],
+  "author": "Roi Avinoam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/avinoamr/dbstream-memory/issues"
+  },
+  "homepage": "https://github.com/avinoamr/dbstream-memory",
+  "devDependencies": {
+    "mocha": "^1.21.0"
+  },
+  "dependencies": {
+    "sift": "0.0.18"
+  }
+}
