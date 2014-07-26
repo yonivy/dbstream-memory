@@ -6,7 +6,7 @@ A memory-based database API, compatible with the [dbstream](https://github.com/a
 ### Usage
 
 ```javascript
-var db = require( "dbstream-memory" );
+var db = require("dbstream-memory");
 var connection = db.connect();
 
 // write or update
@@ -14,7 +14,7 @@ var cursor = new connection.Cursor()
 cursor.write({ id: 1, name: "Hello" });
 cursor.write({ id: 2, name: "World" });
 cursor.on("finish", function() {
-  console.log( "Saved!" );
+  console.log("Saved 2 objects");
 });
 cursor.end();
 
