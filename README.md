@@ -1,7 +1,7 @@
 dbstream-memory
 ===============
 
-A memory-based database API, compatible with the [dbstream](https://github.com/avinoamr/dbstream) API
+Memory-based database API, compatible with the [dbstream](https://github.com/avinoamr/dbstream) API
 
 ### Usage
 
