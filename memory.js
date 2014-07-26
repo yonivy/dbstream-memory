@@ -17,6 +17,8 @@ Cursor.prototype._save = function ( obj, callback ) {
 }
 
 Cursor.prototype._load = function ( size ) {
+    if ( this._loading ) return;
+    this._loading = true;
     var query = this._query,
         sort = this._sort,
         skip = this._skip || 0,
@@ -38,6 +40,7 @@ Cursor.prototype._load = function ( size ) {
     data.splice( limit );
     data.push( null );
     data.forEach( this.push, this );
+    this._loading = false;
 }
 
 Cursor.prototype._remove = function ( obj, callback ) {

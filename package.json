@@ -26,6 +26,7 @@
     "mocha": "^1.21.0"
   },
   "dependencies": {
+    "dbstream": "git+https://github.com/avinoamr/dbstream",
     "sift": "0.0.18"
   }
 }
