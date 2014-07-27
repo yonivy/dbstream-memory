@@ -34,6 +34,6 @@ This module implements the [dbstream](https://github.com/avinoamr/dbstream) API.
 ###### connect( [object] )
 
 * `object` a key-value map of existing objects
-* Returns a dbstream [Cursor](https://github.com/avinoamr/dbstream#cursor) object
+* Returns a dbstream [Connection](https://github.com/avinoamr/dbstream#connection) object
 
 
