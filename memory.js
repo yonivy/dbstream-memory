@@ -12,7 +12,7 @@ Cursor.prototype._save = function ( obj, callback ) {
     if ( !obj.id ) {
         obj.id = ( Math.random() * 1e17 ).toString( 36 );
     }
-    this._data[ obj.id ] = obj;
+    this._data[ obj.id ] = copy( obj );
     process.nextTick( callback );
 }
 
@@ -25,14 +25,10 @@ Cursor.prototype._load = function ( size ) {
         limit = this._limit || Infinity;
 
     var data = [];
-    if ( Object.keys( query ).length == 1 && query.id ) {
-        if ( this._data[ query.id ] ) data.push( this._data[ query.id ] );
-    } else {
-        var sifter = sift( query );
-        for ( var id in this._data ) {
-            if ( sifter.test( this._data[ id ] ) ) {
-                data.push( this._data[ id ] );
-            }
+    var sifter = sift( query );
+    for ( var id in this._data ) {
+        if ( sifter.test( this._data[ id ] ) ) {
+            data.push( copy( this._data[ id ] ) );
         }
     }
 
@@ -58,3 +54,7 @@ module.exports.connect = function ( data ) {
     util.inherits( _Cursor, Cursor );
     return { Cursor: _Cursor }
 };
+
+function copy ( obj ) {
+    return JSON.parse( JSON.stringify( obj ) );
+}
