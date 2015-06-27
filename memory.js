@@ -10,7 +10,7 @@ function Cursor ( data ) {
 
 Cursor.prototype._save = function ( obj, callback ) {
     if ( !obj.id ) {
-        obj.id = ( Math.random() * 1e17 ).toString( 36 );
+        obj.id = Math.random().toString( 36 ).substr( 2 );
     }
     this._data[ obj.id ] = copy( obj );
     process.nextTick( callback );
