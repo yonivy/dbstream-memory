@@ -20,7 +20,7 @@ Cursor.prototype._load = function ( size ) {
     if ( this._loading ) return;
     this._loading = true;
     var query = this._query,
-        sort = this._sort,
+        sort = this._sort || [],
         skip = this._skip || 0,
         limit = this._limit || Infinity;
 
@@ -31,6 +31,16 @@ Cursor.prototype._load = function ( size ) {
             data.push( copy( this._data[ id ] ) );
         }
     }
+
+    data.sort( function ( d1, d2 ) {
+        for ( var s = 0 ; s < sort.length ; s += 1 ) {
+            s = sort[ s ];
+            if ( d1[ s.key ] == d2[ s.key ] ) continue;
+            return d1[ s.key ] > d2[ s.key ] 
+                ? s.direction : -s.direction;
+        }
+        return 0;
+    })
 
     data.splice( 0, skip )
     data.splice( limit );
