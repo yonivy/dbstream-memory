@@ -28,7 +28,7 @@ Cursor.prototype._load = function ( size ) {
     var sifter = sift( query );
     for ( var id in this._data ) {
         if ( sifter.test( this._data[ id ] ) ) {
-            data.push( copy( this._data[ id ] ) );
+            data.push( this._data[ id ] );
         }
     }
 
@@ -45,7 +45,7 @@ Cursor.prototype._load = function ( size ) {
     data.splice( 0, skip )
     data.splice( limit );
     data.push( null );
-    data.forEach( this.push, this );
+    data.map( copy ).forEach( this.push, this );
     this._loading = false;
 }
 
