@@ -10,7 +10,7 @@ function Cursor ( data ) {
 
 Cursor.prototype._save = function ( obj, callback ) {
     if ( !obj.id ) {
-        obj.id = Math.random().toString( 36 ).substr( 2 );
+        obj.id = (Math.random().toString( 16 ).substr( 3 ) + Math.random().toString( 16 ).substr( 3 ));
     }
     this._data[ obj.id ] = copy( obj );
     process.nextTick( callback );
@@ -36,7 +36,7 @@ Cursor.prototype._load = function ( size ) {
         for ( var s = 0 ; s < sort.length ; s += 1 ) {
             s = sort[ s ];
             if ( d1[ s.key ] == d2[ s.key ] ) continue;
-            return d1[ s.key ] > d2[ s.key ] 
+            return d1[ s.key ] > d2[ s.key ]
                 ? s.direction : -s.direction;
         }
         return 0;
